@@ -1,0 +1,39 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: mongoose-restaurant-backend
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+    env_file:
+      - ./backend/.env
+    networks:
+      - restaurant-network
+    restart: unless-stopped
+
+    
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: mongoose-restaurant-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    env_file:
+      - ./frontend/.env
+    networks:
+      - restaurant-network
+    restart: unless-stopped
+    depends_on:
+      - backend
+
+networks:
+  restaurant-network:
+    driver: bridge
