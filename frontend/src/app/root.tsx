@@ -7,6 +7,9 @@ import {
   ScrollRestoration,
 } from "react-router";
 
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { ThemeProvider } from "./contexts/ThemeContexts";
+import ThemeSwitcher from "./components/layouts/ThemeSwitcher";
 import type { Route } from "./+types/root";
 import "./app.css";
 
@@ -24,6 +27,8 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+
+
   return (
     <html lang="en">
       <head>
@@ -42,7 +47,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  const queryClient = new QueryClient();
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider>
+        <Outlet />
+        <ThemeSwitcher />
+      </ThemeProvider>
+    </QueryClientProvider>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

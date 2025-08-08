@@ -7,13 +7,14 @@ import { parsedEnvVariables, validateEnvVariables } from "./config/variables";
 import dishesRoutes from "./routes/dishes";
 import categoriesRouter from "./routes/categories";
 import ordersRoutes from "./routes/orders";
+import cors from "cors";
 
 
 dotenv.config();
 validateEnvVariables();
 const app = express();
 app.use(express.json());
-
+app.use(cors());
 connectDB();
 
 app.get("/", (req: Request, res: Response) => {
