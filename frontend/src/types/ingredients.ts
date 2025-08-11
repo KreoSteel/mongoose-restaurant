@@ -1,5 +1,5 @@
 export default interface Ingredient {
-    id:string
+    _id:string
     name:string
     price:number
     stock:number

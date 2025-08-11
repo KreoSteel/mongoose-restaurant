@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import http from "../utils/http";
 import type Ingredient from "src/types/ingredients";
 
@@ -11,5 +11,16 @@ const useIngredients = () => {
         }
     });
 }
+const useEditIngredient = () => {
+    return useMutation({
+        mutationFn: async (ingredient:Ingredient):Promise<Ingredient> => {
+            const response = await http.put(`/ingredients/${ingredient._id}`, {...ingredient, updatedAt:new Date()});
+            return response.data
+        },
+        mutationKey: ["editIngredient"]
+    })
+}
 
-export default useIngredients;
+
+
+export {useIngredients, useEditIngredient}
