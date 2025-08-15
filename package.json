@@ -12,5 +12,8 @@
         "rebuild": "npm run remove && npm run start"
     },
     "author": "Your Name",
-    "license": "MIT"
+    "license": "MIT",
+    "dependencies": {
+        "react-icons": "^5.5.0"
+    }
 }

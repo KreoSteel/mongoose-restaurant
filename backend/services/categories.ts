@@ -28,11 +28,6 @@ export async function updateCategory(id: string, category: typeof Category.schem
 
 
 export async function deleteCategory(id: string) {
-    const dishesUsingCategory = await Dish.find({ categories: id });
-    if (dishesUsingCategory.length > 0) {
-        const dishIds = dishesUsingCategory.map(dish => dish._id).join(', ');
-        throw new Error(`Cannot delete category. It is used by the following dishes: ${dishIds}`);
-    }
     const deletedCategory = await Category.findByIdAndDelete(id);
     return deletedCategory;
 }
